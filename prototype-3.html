@@ -1,0 +1,534 @@
+<title>MEANT — Malayalee Engineers' Association of North Texas</title>
+<style>
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  }
+  :root {
+    --navy: #0F2A3D;
+    --navy-deep: #091A26;
+    --navy-surface: #0F2A3D;
+    --on-navy: #F3F6F8;
+    --ink: #10202B;
+    --paper: #F6F4EF;
+    --surface: #FFFFFF;
+    --line: #E6E1D6;
+    --muted: #56646F;
+    --gold: #B9812B;
+    --gold-ink: #7A5620;
+    --teal: #0E7C6B;
+    --display: -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --body: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: "IBM Plex Mono", "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    --shadow: 0 1px 2px rgba(15,42,61,0.04), 0 8px 24px rgba(15,42,61,0.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --navy: #DCE6EC; --navy-deep: #0B1620; --ink: #E8EDF1; --paper: #0B1620; --surface: #121E29;
+      --line: #223241; --muted: #93A4B2; --gold: #D7A441; --gold-ink: #E8C06C; --teal: #3FC8AE;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"] { --navy:#DCE6EC;--navy-deep:#0B1620;--ink:#E8EDF1;--paper:#0B1620;--surface:#121E29;--line:#223241;--muted:#93A4B2;--gold:#D7A441;--gold-ink:#E8C06C;--teal:#3FC8AE; }
+  :root[data-theme="light"] { --navy:#0F2A3D;--navy-deep:#091A26;--ink:#10202B;--paper:#F6F4EF;--surface:#FFFFFF;--line:#E6E1D6;--muted:#56646F;--gold:#B9812B;--gold-ink:#7A5620;--teal:#0E7C6B; }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); line-height: 1.6; }
+  .wrap { width: min(1160px, calc(100% - 48px)); margin: 0 auto; }
+  a { color: inherit; text-decoration: none; }
+  h1, h2, h3, h4 { font-family: var(--display); font-weight: 750; margin: 0; text-wrap: balance; letter-spacing: -0.015em; color: var(--navy); }
+  p { margin: 0; }
+  img, svg { max-width: 100%; }
+  .skip-link { position: absolute; left: 12px; top: -60px; background: var(--surface); color: var(--navy); padding: 10px 16px; z-index: 999; border-radius: 6px; font-size: 0.9rem; font-weight: 600; box-shadow: var(--shadow); }
+  .skip-link:focus { top: 12px; }
+  :focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+  .eyebrow { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-ink); margin: 0 0 10px; display: inline-flex; align-items: center; gap: 8px; }
+  .eyebrow::before { content: ""; width: 20px; height: 1px; background: var(--gold); }
+
+  header { position: sticky; top: 0; z-index: 70; background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .nav { height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-mark { width: 38px; height: 38px; border-radius: 8px; background: var(--navy-surface); color: var(--on-navy); display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 15px; flex: none; }
+  .brand-name { font-family: var(--display); font-weight: 800; font-size: 1.05rem; color: var(--navy); line-height: 1.15; }
+  .brand-sub { display: block; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
+  .nav-links { display: flex; align-items: center; gap: 26px; font-size: 0.92rem; font-weight: 600; color: var(--navy); }
+  .nav-links a:hover { color: var(--teal); }
+  .nav-actions { display: flex; align-items: center; gap: 14px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px; border-radius: 6px; font-weight: 700; font-size: 0.9rem; border: 1px solid var(--line); background: var(--surface); color: var(--navy); cursor: pointer; }
+  .btn:hover { border-color: var(--navy); }
+  .btn.solid { background: var(--navy-surface); color: var(--on-navy); border-color: var(--navy-surface); }
+  .btn.solid:hover { background: var(--navy-deep); }
+  .menu-toggle { display: none; border: 1px solid var(--line); background: var(--surface); border-radius: 6px; width: 42px; height: 42px; color: var(--navy); font-size: 1.1rem; }
+
+  section { padding: 84px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+  .sec-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 40px; }
+  .sec-head h2 { font-size: clamp(1.7rem, 3.2vw, 2.3rem); }
+  .sec-head .dek { max-width: 580px; color: var(--muted); margin-top: 12px; font-size: 1rem; }
+  .text-link { font-weight: 700; color: var(--teal); white-space: nowrap; display: inline-flex; gap: 6px; }
+
+  /* ---------- HERO ---------- */
+  .hero { background: var(--navy-surface); color: #EAF1F5; border-bottom: none; position: relative; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 34px 34px; mask-image: linear-gradient(180deg, black, transparent 70%); }
+  .hero .wrap { position: relative; z-index: 2; padding: 86px 24px 0; }
+  .hero h1 { color: #fff; font-size: clamp(2.5rem, 5.6vw, 4rem); line-height: 1.07; max-width: 760px; }
+  .hero h1 span { color: #8FE0CE; }
+  .hero .lede { color: #B9CBD5; font-size: 1.12rem; max-width: 560px; margin-top: 22px; font-weight: 400; }
+  .hero .cta-row { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
+  .hero .btn.on-dark { background: transparent; border-color: rgba(255,255,255,0.3); color: #fff; }
+  .hero .btn.on-dark:hover { border-color: #fff; }
+  .hero .btn.solid.on-dark { background: #8FE0CE; border-color: #8FE0CE; color: #07211C; }
+  .hero .btn.solid.on-dark:hover { background: #A6ECDF; filter: brightness(1.05); }
+
+  .pillar-strip { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(5,1fr); margin-top: 56px; border-top: 1px solid rgba(255,255,255,0.14); }
+  .pillar-chip { padding: 20px 14px; border-right: 1px solid rgba(255,255,255,0.14); display: flex; align-items: center; gap: 10px; color: #D7E4E9; }
+  .pillar-chip:last-child { border-right: none; }
+  .pillar-chip svg { width: 20px; height: 20px; flex: none; }
+  .pillar-chip b { font-family: var(--display); font-size: 0.86rem; font-weight: 700; }
+  .pillar-chip:hover { background: rgba(255,255,255,0.05); }
+
+  .stat-strip { display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid rgba(255,255,255,0.14); position: relative; z-index: 2; }
+  .stat-strip div { padding: 22px 20px; border-right: 1px solid rgba(255,255,255,0.14); }
+  .stat-strip div:last-child { border-right: none; }
+  .stat-strip b { display: block; font-family: var(--display); font-size: 1.8rem; color: #fff; font-variant-numeric: tabular-nums; }
+  .stat-strip span { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: #9FB6C0; }
+
+  /* ---------- EVENTS ---------- */
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+  .filter { border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--muted); padding: 9px 16px; font-size: 0.85rem; font-weight: 700; cursor: pointer; }
+  .filter[aria-pressed="true"] { background: var(--navy-surface); border-color: var(--navy-surface); color: var(--on-navy); }
+
+  .live-badge { font-family: var(--mono); font-size: 10.5px; color: var(--teal); border: 1px solid var(--teal); padding: 5px 12px; display: inline-flex; align-items: center; gap: 7px; margin-bottom: 24px; border-radius: 999px; }
+  .live-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: pulse 1.8s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  .events-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; }
+  .featured-event { background: var(--navy-surface); color: #fff; border-radius: 14px; padding: 32px; display: flex; flex-direction: column; justify-content: space-between; min-height: 300px; }
+  .featured-event .ptag { background: rgba(255,255,255,0.12); color: #8FE0CE; }
+  .featured-event h3 { color: #fff; font-size: clamp(1.4rem, 2.6vw, 1.9rem); margin-top: 16px; max-width: 420px; }
+  .featured-event p.desc { color: #B9CBD5; margin-top: 10px; max-width: 400px; font-size: 0.95rem; }
+  .featured-event .ef-bottom { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 24px; flex-wrap: wrap; }
+  .date-block { background: rgba(255,255,255,0.1); border-radius: 8px; padding: 10px 14px; text-align: center; min-width: 56px; }
+  .date-block b { display: block; font-size: 1.2rem; color: #fff; font-variant-numeric: tabular-nums; }
+  .date-block span { font-size: 9.5px; color: #8FE0CE; font-family: var(--mono); letter-spacing: 0.06em; }
+  .ef-meta { display: flex; align-items: center; gap: 12px; }
+  .ef-meta small { display: block; color: #9FB6C0; font-size: 0.78rem; }
+  .ef-meta strong { font-size: 0.92rem; color: #fff; }
+
+  .event-list { display: grid; gap: 12px; }
+  .event-row { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; display: grid; grid-template-columns: 54px 1fr auto auto; align-items: center; gap: 14px; }
+  .event-row .date-block { background: var(--paper); min-width: 48px; padding: 8px 10px; }
+  .event-row .date-block b { color: var(--navy); font-size: 1.05rem; }
+  .event-row .date-block span { color: var(--teal); }
+  .event-row h4 { font-size: 0.98rem; }
+  .event-row .meta { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 4px; letter-spacing: 0.02em; }
+  .ptag { font-family: var(--mono); font-size: 9px; letter-spacing: 0.04em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; white-space: nowrap; }
+  .ptag.community { background: rgba(14,124,107,0.12); color: var(--teal); }
+  .ptag.professional { background: rgba(185,129,43,0.14); color: var(--gold-ink); }
+  .ptag.academic { background: rgba(91,110,232,0.13); color: #4557C9; }
+  .ptag.culture { background: rgba(201,99,122,0.14); color: #B14A64; }
+  .ptag.social { background: rgba(185,129,43,0.14); color: var(--gold-ink); }
+  .archive-note { margin-top: 28px; font-size: 0.88rem; color: var(--muted); border-left: 2px solid var(--gold); padding-left: 14px; max-width: 640px; }
+
+  /* ---------- PILLARS / ABOUT ---------- */
+  .founding-copy { font-size: 1.02rem; color: var(--ink); max-width: 700px; }
+  .founding-copy + .founding-copy { margin-top: 14px; }
+  .clause-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 18px; max-width: 760px; }
+  .clause { background: var(--surface); border: 1px solid var(--line); padding: 20px; border-radius: 10px; }
+  .clause .tag { font-family: var(--mono); font-size: 10px; color: var(--gold-ink); letter-spacing: 0.06em; text-transform: uppercase; }
+  .clause p { margin-top: 8px; font-size: 0.92rem; color: var(--ink); }
+
+  .pillar-detail { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin-top: 44px; }
+  .pillar-row { background: var(--surface); padding: 26px 28px; display: grid; grid-template-columns: 48px 1fr 1fr; gap: 24px; align-items: start; }
+  .pillar-row svg { width: 26px; height: 26px; margin-top: 4px; }
+  .pillar-row h3 { font-size: 1.1rem; }
+  .pillar-row .desc { font-size: 0.92rem; color: var(--muted); margin-top: 6px; }
+  .pillar-row .ev b { display: block; font-family: var(--mono); font-size: 9.5px; color: var(--gold-ink); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; font-weight: 400; }
+  .pillar-row .ev span { display: block; padding: 3px 0; font-size: 0.88rem; color: var(--ink); }
+
+  /* ---------- GALLERY ---------- */
+  .chip-row { display: flex; gap: 10px; margin-bottom: 28px; flex-wrap: wrap; }
+  .chip { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.03em; text-transform: uppercase; border: 1px solid var(--line); padding: 8px 15px; color: var(--muted); border-radius: 999px; background: var(--surface); }
+  .chip.on { border-color: var(--navy); color: var(--navy); background: var(--paper); font-weight: 700; }
+  .photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .photo-card { border: 1px solid var(--line); background: var(--surface); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); }
+  .photo-card .ph { aspect-ratio: 4/5; }
+  .photo-card .cap { font-family: var(--mono); font-size: 9.5px; color: var(--muted); padding: 10px 12px; display: flex; justify-content: space-between; gap: 6px; }
+  .photo-card .cap b { color: var(--gold-ink); font-weight: 600; }
+  .ph1 { background: linear-gradient(150deg,#B14A64,#5E2434); }
+  .ph2 { background: linear-gradient(150deg,#4557C9,#1E2650); }
+  .ph3 { background: linear-gradient(150deg,#B9812B,#6E4A18); }
+  .ph4 { background: linear-gradient(150deg,#0E7C6B,#0A3F36); }
+  .ph5 { background: linear-gradient(150deg,#7A5AA8,#2E1E55); }
+  .ph6 { background: linear-gradient(150deg,#B14A64,#5E2434); }
+  .ph7 { background: linear-gradient(150deg,#0E7C6B,#0A3F36); }
+  .ph8 { background: linear-gradient(150deg,#B9812B,#6E4A18); }
+  .gallery-note { margin-top: 30px; font-size: 0.88rem; color: var(--muted); border-left: 2px solid var(--gold); padding-left: 14px; max-width: 640px; }
+
+  /* ---------- JOIN ---------- */
+  .tier-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+  .tier { background: var(--surface); border: 1px solid var(--line); padding: 28px; display: flex; flex-direction: column; border-radius: 12px; }
+  .tier.featured { border-color: var(--navy); box-shadow: var(--shadow); }
+  .tier .tag { font-family: var(--mono); font-size: 10px; color: var(--gold-ink); letter-spacing: 0.06em; text-transform: uppercase; }
+  .tier h3 { font-size: 1.25rem; margin-top: 8px; }
+  .tier ul { list-style: none; margin: 16px 0 0; padding: 0; color: var(--muted); font-size: 0.88rem; display: grid; gap: 8px; flex: 1; }
+  .tier ul li::before { content: "— "; color: var(--teal); }
+  .tier .btn { margin-top: 20px; justify-content: center; }
+  .why-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 14px; margin-top: 40px; }
+  .why-card { border: 1px solid var(--line); padding: 18px; background: var(--surface); border-radius: 10px; }
+  .why-card svg { width: 20px; height: 20px; margin-bottom: 10px; }
+  .why-card .tag { font-family: var(--mono); font-size: 9.5px; color: var(--gold-ink); letter-spacing: 0.06em; text-transform: uppercase; }
+  .why-card p { margin-top: 8px; font-size: 0.84rem; color: var(--ink); }
+
+  /* ---------- LEADERSHIP ---------- */
+  .lead-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+  .lead-card { border: 1px solid var(--line); background: var(--surface); border-radius: 12px; padding: 22px; text-align: center; }
+  .lead-avatar { width: 56px; height: 56px; margin: 0 auto 14px; border-radius: 50%; background: var(--paper); border: 1px solid var(--line); display: grid; place-items: center; font-family: var(--display); font-weight: 800; color: var(--navy); }
+  .lead-card h4 { font-size: 0.95rem; }
+  .lead-card p { font-size: 0.82rem; color: var(--muted); margin-top: 4px; }
+  .lead-note { margin-top: 24px; font-size: 0.85rem; color: var(--muted); }
+
+  /* ---------- CONTACT / NEWSLETTER ---------- */
+  .newsletter { background: var(--navy-surface); color: #fff; border-radius: 16px; padding: 40px 44px; display: flex; align-items: center; justify-content: space-between; gap: 30px; flex-wrap: wrap; }
+  .newsletter h2 { color: #fff; font-size: 1.5rem; }
+  .newsletter p { color: #B9CBD5; margin-top: 6px; max-width: 420px; }
+  .signup { display: flex; gap: 8px; width: min(420px, 100%); }
+  .signup input { flex: 1; min-width: 0; padding: 12px 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.08); color: #fff; }
+  .signup input::placeholder { color: #9FB6C0; }
+  .form-message { font-size: 0.82rem; color: #8FE0CE; margin-top: 10px; min-height: 1.2em; }
+
+  footer { background: var(--navy-deep); color: #9FB6C0; padding: 56px 0 26px; }
+  .footer-grid { display: grid; grid-template-columns: 1.3fr 0.8fr 0.8fr 1fr; gap: 36px; padding-bottom: 36px; }
+  footer .brand-name { color: #fff; } footer .brand-sub { color: #6E8695; }
+  .footer-about { font-size: 0.86rem; color: #8097A5; max-width: 300px; margin-top: 16px; }
+  .footer-col h5 { color: #fff; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 4px 0 14px; }
+  .footer-col a { display: block; font-size: 0.86rem; margin: 9px 0; color: #9FB6C0; }
+  .footer-col a:hover { color: #8FE0CE; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 18px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 0.78rem; color: #6E8695; }
+
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 980px) {
+    .nav-links { display: none; }
+    .menu-toggle { display: block; }
+    .pillar-strip, .stat-strip { grid-template-columns: repeat(2,1fr); }
+    .pillar-chip, .stat-strip div { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.14); }
+    .events-layout { grid-template-columns: 1fr; }
+    .clause-grid, .tier-grid { grid-template-columns: 1fr; }
+    .why-grid, .photo-grid, .lead-grid { grid-template-columns: repeat(2,1fr); }
+    .pillar-row { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .newsletter { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 560px) {
+    section { padding: 56px 0; }
+    .event-row { grid-template-columns: 1fr; text-align: left; }
+    .sec-head { flex-direction: column; align-items: flex-start; }
+  }
+
+  #mobileMenu { display: none; position: fixed; inset: 76px 0 0 0; background: var(--surface); z-index: 60; padding: 24px; overflow-y: auto; }
+  #mobileMenu.open { display: block; }
+  #mobileMenu a { display: block; padding: 14px 4px; font-size: 1.05rem; font-weight: 700; color: var(--navy); border-bottom: 1px solid var(--line); }
+  #mobileMenu .btn { margin-top: 20px; width: 100%; justify-content: center; }
+</style>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <g id="ic-community"><circle cx="9" cy="13" r="5.2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="13" r="5.2" fill="none" stroke="currentColor" stroke-width="1.6"/></g>
+    <g id="ic-professional"><rect x="4" y="10" width="20" height="13" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 10V7a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="4" y1="15.5" x2="24" y2="15.5" stroke="currentColor" stroke-width="1.6"/></g>
+    <g id="ic-academic"><path d="M14 6 2 11l12 5 12-5-12-5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M7 13.5V19c0 1.5 3 3 7 3s7-1.5 7-3v-5.5" fill="none" stroke="currentColor" stroke-width="1.6"/></g>
+    <g id="ic-culture"><path d="M14 4c3 3 4 6 2.4 9-1 1.8-3.4 2-4.8.3C10 11.6 11 8 14 4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 24c0-5 2.7-8 6-8s6 3 6 8" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="6" y1="24" x2="22" y2="24" stroke="currentColor" stroke-width="1.6"/></g>
+    <g id="ic-social"><path d="M3 9.5A3.5 3.5 0 0 1 6.5 6h8A3.5 3.5 0 0 1 18 9.5v3A3.5 3.5 0 0 1 14.5 16H9l-4 3v-3H6.5A3.5 3.5 0 0 1 3 12.5v-3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M19 9h2.5A3.5 3.5 0 0 1 25 12.5v3A3.5 3.5 0 0 1 21.5 19H21v3l-3.3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></g>
+  </defs>
+</svg>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#home" aria-label="MEANT home">
+      <div class="brand-mark" aria-hidden="true">M</div>
+      <div><div class="brand-name">MEANT</div><span class="brand-sub">Malayalee Engineers' Assoc. of North Texas</span></div>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#events">Events</a>
+      <a href="#about">Pillars</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#join">Membership</a>
+      <a href="#leadership">Leadership</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn solid" href="#join">Join MEANT</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+    </div>
+  </div>
+</header>
+
+<div id="mobileMenu">
+  <a href="#events">Events</a>
+  <a href="#about">Pillars</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#join">Membership</a>
+  <a href="#leadership">Leadership</a>
+  <a class="btn solid" href="#join">Join MEANT</a>
+</div>
+
+<main id="main">
+<section class="hero" id="home">
+  <div class="wrap">
+    <p class="eyebrow">Malayalee Engineers' Assoc. of North Texas · Est. 1997</p>
+    <h1>Engineering a community, <span>pillar by pillar.</span></h1>
+    <p class="lede">Community, Professional, Academic, Culture, and Social — the five commitments MEANT has organized twenty-nine years of North Texas gatherings around. Two hundred member families, one drafting table.</p>
+    <div class="cta-row">
+      <a class="btn solid on-dark" href="#events">See what's on</a>
+      <a class="btn on-dark" href="#join">Join MEANT</a>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="pillar-strip">
+      <a class="pillar-chip" href="#about"><svg><use href="#ic-community"></use></svg><b>Community</b></a>
+      <a class="pillar-chip" href="#about"><svg><use href="#ic-professional"></use></svg><b>Professional</b></a>
+      <a class="pillar-chip" href="#about"><svg><use href="#ic-academic"></use></svg><b>Academic</b></a>
+      <a class="pillar-chip" href="#about"><svg><use href="#ic-culture"></use></svg><b>Culture</b></a>
+      <a class="pillar-chip" href="#about"><svg><use href="#ic-social"></use></svg><b>Social</b></a>
+    </div>
+    <div class="stat-strip">
+      <div><b>1997</b><span>Founded</span></div>
+      <div><b>200+</b><span>Member families</span></div>
+      <div><b>5</b><span>Pillars, 7 flagship events</span></div>
+      <div><b>2007</b><span>Distinguished Eng. award since</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="events">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">Programming</span><h2>Upcoming, and twenty-nine years of archive</h2><p class="dek">Every event below is sorted into one of MEANT's five pillars. In production this list is synced live from Meant360.</p></div>
+      <a class="text-link" href="#about">See all five pillars →</a>
+    </div>
+    <span class="live-badge"><span class="dot"></span>SYNCED LIVE FROM MEANT360</span>
+    <div class="filters" role="group" aria-label="Filter events by pillar">
+      <button class="filter" aria-pressed="true" data-filter="all">All events</button>
+      <button class="filter" aria-pressed="false" data-filter="community">Community</button>
+      <button class="filter" aria-pressed="false" data-filter="professional">Professional</button>
+      <button class="filter" aria-pressed="false" data-filter="academic">Academic</button>
+      <button class="filter" aria-pressed="false" data-filter="culture">Culture</button>
+      <button class="filter" aria-pressed="false" data-filter="social">Social</button>
+    </div>
+    <div class="events-layout" id="eventsLayout">
+      <article class="featured-event reveal" data-filter="academic">
+        <div>
+          <span class="ptag academic">Academic · Featured</span>
+          <h3>Math Olympiad 2026</h3>
+          <p class="desc">Grades 1–11, held at UT Dallas — twenty-nine years of building mathematics confidence in the next generation of engineers.</p>
+        </div>
+        <div class="ef-bottom">
+          <div class="ef-meta"><div class="date-block"><span>OCT</span><b>18</b></div><div><strong>University of Texas at Dallas</strong><small>47 registered · registration open</small></div></div>
+          <a class="btn solid on-dark" href="#join">Register →</a>
+        </div>
+      </article>
+      <div class="event-list">
+        <article class="event-row reveal" data-filter="professional"><div class="date-block"><span>NOV</span><b>08</b></div><div><h4>Navigating Immigration as an Engineer</h4><div class="meta">EVENING SEMINAR · VENUE TBD</div></div><span class="ptag professional">Professional</span></article>
+        <article class="event-row reveal" data-filter="social"><div class="date-block"><span>JAN</span><b>24</b></div><div><h4>Annual Banquet &amp; Awards Night</h4><div class="meta">DISTINGUISHED ENGINEER AWARD · LEADERSHIP INSTALLED</div></div><span class="ptag social">Social</span></article>
+        <article class="event-row reveal" data-filter="community"><div class="date-block"><span>MAR</span><b>14</b></div><div><h4>Spring Food Bank Drive</h4><div class="meta">VOLUNTEER MORNING · NORTH TEXAS FOOD BANK</div></div><span class="ptag community">Community</span></article>
+        <article class="event-row reveal" data-filter="culture"><div class="date-block"><span>AUG</span><b>29</b></div><div><h4>Onam Celebration</h4><div class="meta">SADYA · THIRUVATHIRA KALI · MAVELI'S WELCOME</div></div><span class="ptag culture">Culture</span></article>
+      </div>
+    </div>
+    <p class="archive-note" id="emptyState" hidden>No events in this pillar right now — try "All events" or check back after the next board meeting.</p>
+    <p class="archive-note">Archive: Music Night, Annual Picnic, Camping Weekend, Beach Cleanup, Tech Trends Talk, Financial Planning Night, Leadership Workshop, and five more years back to the 2017 founding retrospective.</p>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">History &amp; mission</span><h2>Fifteen families. Five pillars. 1997.</h2></div>
+    </div>
+    <p class="founding-copy reveal">MEANT — the Malayalee Engineers' Association of North Texas — was founded in November 1997 by a small group of engineers from Kerala who saw a gap: no socio-professional forum existed to connect Indian engineers with Malayalee roots settling into North Texas.</p>
+    <p class="founding-copy reveal">From fewer than fifteen member families, the chapter has grown to more than two hundred, becoming — by its own charter — "the most active socio-professional forum for Indian engineers with Kerala/Malayalee links" in the region.</p>
+    <div class="clause-grid reveal">
+      <div class="clause"><p class="tag">Primary mission</p><p>Provide an infrastructure for the professional and personal growth of present and future Indian engineers with Kerala/Malayalee links.</p></div>
+      <div class="clause"><p class="tag">Secondary mission</p><p>Foster community involvement and build social and cultural bonds among members and families through regular, welcoming interaction.</p></div>
+    </div>
+
+    <div class="pillar-detail reveal">
+      <div class="pillar-row">
+        <svg style="color:var(--teal)"><use href="#ic-community"></use></svg>
+        <div><h3>Community</h3><p class="desc">Showing up for each other and for North Texas — the glue between every other pillar.</p></div>
+        <div class="ev"><b>Representative events</b><span>Annual Picnic</span><span>Camping Weekend</span><span>Food Bank Drive</span><span>Beach Cleanup</span></div>
+      </div>
+      <div class="pillar-row">
+        <svg style="color:var(--gold-ink)"><use href="#ic-professional"></use></svg>
+        <div><h3>Professional</h3><p class="desc">Career growth for engineers at every stage — mentorship, leads, and recognition.</p></div>
+        <div class="ev"><b>Representative events</b><span>Distinguished Engineer Award</span><span>Job Leads Sharing Network</span><span>Tech Trends &amp; Leadership Talks</span><span>Immigration &amp; Financial Planning Seminars</span></div>
+      </div>
+      <div class="pillar-row">
+        <svg style="color:#4557C9"><use href="#ic-academic"></use></svg>
+        <div><h3>Academic</h3><p class="desc">Investing in the next generation of engineers, starting in elementary school.</p></div>
+        <div class="ev"><b>Representative events</b><span>Math Olympiad (Grades 1–11)</span><span>Scholarship Program</span><span>Kids Corner</span></div>
+      </div>
+      <div class="pillar-row">
+        <svg style="color:#B14A64"><use href="#ic-culture"></use></svg>
+        <div><h3>Culture</h3><p class="desc">Kerala, kept exactly as it's celebrated at home — not diluted for a new city.</p></div>
+        <div class="ev"><b>Representative events</b><span>Onam Celebration (Sadya, Thiruvathira, Maveli)</span><span>MEANT FEST</span></div>
+      </div>
+      <div class="pillar-row">
+        <svg style="color:var(--gold-ink)"><use href="#ic-social"></use></svg>
+        <div><h3>Social</h3><p class="desc">The nights the whole chapter gets dressed up and shows up for each other.</p></div>
+        <div class="ev"><b>Representative events</b><span>Annual Banquet</span><span>Music Night</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">Memory</span><h2>Curated from twenty-nine years, sorted by pillar</h2><p class="dek">Each album is hand-picked by an event organizer from that event's Google Photos album, then published here — not an uncurated live feed.</p></div>
+    </div>
+    <div class="chip-row reveal">
+      <span class="chip on">All</span><span class="chip">Community</span><span class="chip">Professional</span><span class="chip">Academic</span><span class="chip">Culture</span><span class="chip">Social</span>
+    </div>
+    <div class="photo-grid reveal">
+      <div class="photo-card"><div class="ph ph1"></div><div class="cap"><span>ONAM 2025</span><b>CULTURE</b></div></div>
+      <div class="photo-card"><div class="ph ph2"></div><div class="cap"><span>MATH OLYMPIAD 2025</span><b>ACADEMIC</b></div></div>
+      <div class="photo-card"><div class="ph ph3"></div><div class="cap"><span>DISTINGUISHED ENGINEER NIGHT</span><b>PROFESSIONAL</b></div></div>
+      <div class="photo-card"><div class="ph ph4"></div><div class="cap"><span>ANNUAL PICNIC 2025</span><b>COMMUNITY</b></div></div>
+      <div class="photo-card"><div class="ph ph5"></div><div class="cap"><span>ANNUAL BANQUET 2025</span><b>SOCIAL</b></div></div>
+      <div class="photo-card"><div class="ph ph6"></div><div class="cap"><span>ONAM 2024</span><b>CULTURE</b></div></div>
+      <div class="photo-card"><div class="ph ph7"></div><div class="cap"><span>BEACH CLEANUP 2024</span><b>COMMUNITY</b></div></div>
+      <div class="photo-card"><div class="ph ph8"></div><div class="cap"><span>MATH OLYMPIAD 2024</span><b>ACADEMIC</b></div></div>
+    </div>
+    <p class="gallery-note">Workflow: an organizer opens Google's photo picker once per event, selects the best shots, and publishes them into this archive. Google retired always-on third-party library access in March 2025, so this curated step replaces a live sync — and tends to produce better albums anyway.</p>
+  </div>
+</section>
+
+<section id="join">
+  <div class="wrap">
+    <div class="sec-head reveal"><div><span class="eyebrow">Membership</span><h2>Three ways in, five reasons to stay</h2></div></div>
+    <div class="tier-grid">
+      <div class="tier reveal">
+        <p class="tag">Annual</p><h3>New Member</h3>
+        <ul><li>Full event access, all five pillars</li><li>Job leads network</li><li>Newsletter &amp; voting rights</li><li>Renews each chapter year</li></ul>
+        <a class="btn" href="#leadership">Apply via Meant360 →</a>
+      </div>
+      <div class="tier featured reveal">
+        <p class="tag">One-time</p><h3>Life Member</h3>
+        <ul><li>Everything in New Member</li><li>No annual renewal</li><li>Listed in the permanent directory</li><li>Priority at flagship events</li></ul>
+        <a class="btn solid" href="#leadership">Apply via Meant360 →</a>
+      </div>
+      <div class="tier reveal">
+        <p class="tag">Legacy</p><h3>Founding Member</h3>
+        <ul><li>One of the original 1997 families</li><li>Honored at the Annual Banquet</li><li>Advisory standing within leadership</li></ul>
+        <a class="btn" href="#about">Read the founding story →</a>
+      </div>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal"><svg style="color:var(--teal)"><use href="#ic-community"></use></svg><p class="tag">Community</p><p>Picnics, camping trips, and volunteer days with people who get it.</p></div>
+      <div class="why-card reveal"><svg style="color:var(--gold-ink)"><use href="#ic-professional"></use></svg><p class="tag">Professional</p><p>A job-leads network and a shot at the Distinguished Engineer Award.</p></div>
+      <div class="why-card reveal"><svg style="color:#4557C9"><use href="#ic-academic"></use></svg><p class="tag">Academic</p><p>Math Olympiad and scholarships for the next generation.</p></div>
+      <div class="why-card reveal"><svg style="color:#B14A64"><use href="#ic-culture"></use></svg><p class="tag">Culture</p><p>Onam and MEANT FEST, kept exactly as celebrated at home.</p></div>
+      <div class="why-card reveal"><svg style="color:var(--gold-ink)"><use href="#ic-social"></use></svg><p class="tag">Social</p><p>The Annual Banquet and Music Nights — dressed up, together.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="leadership">
+  <div class="wrap">
+    <div class="sec-head reveal"><div><span class="eyebrow">People who make it happen</span><h2>Led by volunteers, powered by members</h2></div></div>
+    <div class="lead-grid">
+      <div class="lead-card reveal"><div class="lead-avatar">P</div><h4>President</h4><p>Current board profile</p></div>
+      <div class="lead-card reveal"><div class="lead-avatar">VP</div><h4>Vice President</h4><p>Current board profile</p></div>
+      <div class="lead-card reveal"><div class="lead-avatar">S</div><h4>Secretary</h4><p>Current board profile</p></div>
+      <div class="lead-card reveal"><div class="lead-avatar">T</div><h4>Treasurer</h4><p>Current board profile</p></div>
+    </div>
+    <p class="lead-note">Placeholder roles — production pulls approved names, terms, and photos from the CMS.</p>
+  </div>
+</section>
+
+<section id="contact" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="newsletter reveal">
+      <div><h2>Stay in the loop</h2><p>Updates on upcoming events across all five pillars — sent a few times a month, never more.</p></div>
+      <form class="signup" id="signupForm">
+        <label for="email" class="skip-link">Email address</label>
+        <input id="email" type="email" placeholder="you@example.com" required>
+        <button class="btn solid on-dark" type="submit">Subscribe</button>
+      </form>
+    </div>
+    <div class="form-message" id="formMessage" aria-live="polite"></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:0;"><div class="brand-mark" aria-hidden="true">M</div><div><div class="brand-name">MEANT</div><span class="brand-sub">Malayalee Engineers' Assoc. of North Texas</span></div></div>
+        <p class="footer-about">402 Whisperfield Dr, Murphy, TX 75094 · (214) 738-5236 · info@meant.org</p>
+      </div>
+      <div class="footer-col"><h5>Explore</h5><a href="#about">History &amp; mission</a><a href="#events">Events</a><a href="#gallery">Gallery</a></div>
+      <div class="footer-col"><h5>Get involved</h5><a href="#join">Membership</a><a href="#leadership">Leadership</a><a href="#events">Volunteer</a></div>
+      <div class="footer-col"><h5>Connect</h5><a href="#contact">Newsletter</a><a href="#home">Instagram</a><a href="#home">Facebook</a></div>
+    </div>
+    <div class="footer-bottom"><span>© <span id="year"></span> MEANT — Malayalee Engineers' Association of North Texas</span><span>Prototype V3 — professional direction</span></div>
+  </div>
+</footer>
+
+<script>
+  var menuToggle = document.getElementById('menuToggle');
+  var mobileMenu = document.getElementById('mobileMenu');
+  menuToggle.addEventListener('click', function () {
+    var open = mobileMenu.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', String(open));
+    menuToggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+    menuToggle.textContent = open ? '✕' : '☰';
+  });
+  mobileMenu.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      mobileMenu.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Open navigation menu');
+      menuToggle.textContent = '☰';
+    });
+  });
+
+  var filters = document.querySelectorAll('.filter');
+  var items = document.querySelectorAll('#eventsLayout [data-filter]');
+  var emptyState = document.getElementById('emptyState');
+  filters.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      filters.forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
+      var sel = btn.dataset.filter;
+      var visible = 0;
+      items.forEach(function (card) {
+        var show = sel === 'all' || card.dataset.filter === sel;
+        card.hidden = !show;
+        if (show) visible++;
+      });
+      emptyState.hidden = visible > 0;
+    });
+  });
+
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); obs.unobserve(entry.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(function (el) { obs.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('visible'); });
+  }
+
+  document.getElementById('signupForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    document.getElementById('formMessage').textContent = 'Thanks — this prototype form isn\'t connected to a mailing service yet.';
+    e.target.reset();
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MEANT — Website Prototypes</title>
+<meta name="description" content="Three candidate redesigns of meant.org for the Malayalee Engineers' Association of North Texas.">
+<style>
+  :root{
+    --navy:#0F2A3D; --paper:#F6F4EF; --surface:#fff; --line:#E6E1D6; --muted:#56646F; --gold:#B9812B;
+    --mono:"IBM Plex Mono","SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --navy:#DCE6EC; --paper:#0B1620; --surface:#121E29; --line:#223241; --muted:#93A4B2; --gold:#D7A441; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--navy);font-family:var(--sans);line-height:1.6}
+  .wrap{width:min(1000px,calc(100% - 48px));margin:0 auto}
+  header{padding:72px 0 40px}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:0 0 12px}
+  h1{font-size:clamp(1.8rem,4vw,2.6rem);margin:0;letter-spacing:-.02em;font-weight:800}
+  p.lede{color:var(--muted);max-width:620px;margin-top:14px;font-size:1.02rem}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding-bottom:80px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:26px;display:flex;flex-direction:column;gap:12px;text-decoration:none;color:inherit}
+  .card:hover{border-color:var(--navy)}
+  .num{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--gold);text-transform:uppercase}
+  .card h2{margin:0;font-size:1.15rem}
+  .card p{margin:0;color:var(--muted);font-size:.92rem;flex:1}
+  .open{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--navy);font-weight:700}
+  footer{padding:0 0 60px;color:var(--muted);font-size:.85rem}
+  @media (max-width:760px){ .grid{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p class="eyebrow">MEANT — Malayalee Engineers' Association of North Texas</p>
+      <h1>Website redesign — three prototypes</h1>
+      <p class="lede">Candidate directions for replacing meant.org. Open each to compare; none are final.</p>
+    </header>
+    <div class="grid">
+      <a class="card" href="prototype-1.html">
+        <span class="num">Prototype 1</span>
+        <h2>Community-first concept</h2>
+        <p>Warm, photo-led hero with floating highlight cards, filterable event grid, activities and gallery sections.</p>
+        <span class="open">Open →</span>
+      </a>
+      <a class="card" href="prototype-2.html">
+        <span class="num">Prototype 2</span>
+        <h2>Network &amp; programs concept</h2>
+        <p>Animated orbit/network hero, featured-event layout, four-program grid (professional, education, culture, service).</p>
+        <span class="open">Open →</span>
+      </a>
+      <a class="card" href="prototype-3.html">
+        <span class="num">Prototype 3</span>
+        <h2>Professional — five pillars</h2>
+        <p>Light, corporate-credible direction built around MEANT's real taxonomy: Community, Professional, Academic, Culture, Social. Working mobile nav and accessible filters.</p>
+        <span class="open">Open →</span>
+      </a>
+    </div>
+    <footer>Internal review only — not connected to live data, Meant360, or Google Photos.</footer>
+  </div>
+</body>
+</html>
