@@ -232,6 +232,30 @@
   #mobileMenu.open { display: block; }
   #mobileMenu a { display: block; padding: 14px 4px; font-size: 1.05rem; font-weight: 700; color: var(--navy); border-bottom: 1px solid var(--line); }
   #mobileMenu .btn { margin-top: 20px; width: 100%; justify-content: center; }
+
+  /* ---------- Ask MEANT widget ---------- */
+  .ai-launcher { position: fixed; right: 24px; bottom: 24px; z-index: 80; display: inline-flex; align-items: center; gap: 8px; padding: 14px 18px; border-radius: 999px; background: var(--navy-surface); color: var(--on-navy); border: none; font-family: var(--display); font-weight: 700; font-size: 0.88rem; cursor: pointer; box-shadow: var(--shadow); }
+  .ai-launcher:hover { filter: brightness(1.08); }
+  .ai-launcher svg { width: 18px; height: 18px; flex: none; }
+  .ai-panel { position: fixed; right: 24px; bottom: 92px; z-index: 81; width: min(360px, calc(100vw - 48px)); max-height: 72vh; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); display: none; flex-direction: column; overflow: hidden; }
+  .ai-panel.open { display: flex; }
+  .ai-panel-head { background: var(--navy-surface); color: var(--on-navy); padding: 16px 40px 16px 18px; position: relative; }
+  .ai-panel-head h3 { font-size: 0.95rem; margin: 0; color: var(--on-navy); }
+  .ai-panel-head p { font-family: var(--mono); font-size: 10px; color: rgba(243,246,248,0.72); margin-top: 4px; }
+  .ai-close { position: absolute; top: 12px; right: 12px; background: none; border: none; color: var(--on-navy); font-size: 1.1rem; cursor: pointer; line-height: 1; padding: 4px; }
+  .ai-log { flex: 1; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem; min-height: 160px; }
+  .ai-msg { max-width: 85%; padding: 9px 12px; border-radius: 10px; line-height: 1.45; }
+  .ai-msg.bot { background: var(--paper); border: 1px solid var(--line); align-self: flex-start; color: var(--ink); }
+  .ai-msg.user { background: var(--navy-surface); color: var(--on-navy); align-self: flex-end; }
+  .ai-typing { font-family: var(--mono); font-size: 10px; color: var(--muted); align-self: flex-start; }
+  .ai-form { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--line); }
+  .ai-form input { flex: 1; min-width: 0; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); font-size: 0.85rem; color: var(--ink); }
+  .ai-form button { background: var(--navy-surface); color: var(--on-navy); border: none; border-radius: 8px; padding: 0 14px; font-weight: 700; cursor: pointer; font-size: 0.85rem; }
+  .ai-note { font-family: var(--mono); font-size: 9px; color: var(--muted); padding: 0 16px 12px; line-height: 1.5; }
+  @media (max-width: 480px) {
+    .ai-launcher span.label { display: none; }
+    .ai-panel { right: 16px; bottom: 84px; }
+  }
 </style>
 
 <svg width="0" height="0" style="position:absolute">
@@ -479,6 +503,28 @@
   </div>
 </footer>
 
+<button class="ai-launcher" id="aiLauncher" aria-expanded="false" aria-controls="aiPanel">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 11a8 8 0 1 1 3 6.2L4 19l1.1-3.2A7.96 7.96 0 0 1 4 11z"></path></svg>
+  <span class="label">Ask MEANT</span>
+</button>
+
+<div class="ai-panel" id="aiPanel" role="dialog" aria-label="Ask MEANT chat">
+  <div class="ai-panel-head">
+    <h3>Ask MEANT</h3>
+    <p>Grounded in this site — pillars, events, membership</p>
+    <button class="ai-close" id="aiClose" aria-label="Close chat">✕</button>
+  </div>
+  <div class="ai-log" id="aiLog" aria-live="polite">
+    <div class="ai-msg bot">Hi — ask me about Onam, Math Olympiad, membership, the Distinguished Engineer Award, or the five pillars.</div>
+  </div>
+  <form class="ai-form" id="aiForm">
+    <label for="aiInput" class="skip-link">Ask a question</label>
+    <input id="aiInput" type="text" placeholder="e.g. when is Math Olympiad?" autocomplete="off">
+    <button type="submit">Send</button>
+  </form>
+  <p class="ai-note">Prototype demo — canned answers. Production: Claude Haiku 4.5 via Vercel AI Gateway, grounded in live Meant360 data.</p>
+</div>
+
 <script>
   var menuToggle = document.getElementById('menuToggle');
   var mobileMenu = document.getElementById('mobileMenu');
@@ -531,4 +577,67 @@
     e.target.reset();
   });
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  (function () {
+    var launcher = document.getElementById('aiLauncher');
+    var panel = document.getElementById('aiPanel');
+    var closeBtn = document.getElementById('aiClose');
+    var log = document.getElementById('aiLog');
+    var form = document.getElementById('aiForm');
+    var input = document.getElementById('aiInput');
+
+    function toggle(open) {
+      panel.classList.toggle('open', open);
+      launcher.setAttribute('aria-expanded', String(open));
+      if (open) input.focus();
+    }
+    launcher.addEventListener('click', function () { toggle(!panel.classList.contains('open')); });
+    closeBtn.addEventListener('click', function () { toggle(false); });
+
+    var answers = [
+      { k: ['onam'], a: "Onam Celebration is MEANT's Culture-pillar flagship — Maveli's welcome, thiruvathira kali, and a full sadya feast, kept exactly as it's celebrated at home." },
+      { k: ['olympiad', 'math'], a: 'Math Olympiad 2026 is Saturday, October 18 at UT Dallas, open to grades 1–11. Registration is open — 47 already signed up.' },
+      { k: ['member', 'join'], a: 'Three tiers: New Member (annual), Life Member (one-time, no renewal), and Founding Member (one of the original 1997 families). Apply via Meant360 — see Membership.' },
+      { k: ['banquet'], a: "The Annual Banquet is January 24 — the Social pillar's flagship night, with the Distinguished Engineer Award and incoming leadership installed." },
+      { k: ['distinguished', 'award'], a: "The Distinguished Engineer Award has been presented annually since 2007 at the Annual Banquet, recognizing a member whose career reflects MEANT's founding charter." },
+      { k: ['pillar'], a: 'MEANT organizes everything around five pillars — Community, Professional, Academic, Culture, and Social. See the Pillars section for what falls under each.' },
+      { k: ['contact', 'address', 'phone', 'email'], a: '402 Whisperfield Dr, Murphy, TX 75094 · (214) 738-5236 · info@meant.org' },
+      { k: ['photo', 'gallery'], a: "The gallery is curated — an organizer hand-picks each event's best shots from Google Photos rather than an auto-synced feed." }
+    ];
+
+    function answerFor(text) {
+      var q = text.toLowerCase();
+      for (var i = 0; i < answers.length; i++) {
+        for (var j = 0; j < answers[i].k.length; j++) {
+          if (q.indexOf(answers[i].k[j]) !== -1) return answers[i].a;
+        }
+      }
+      return "I don't have an answer for that in this demo — try asking about Onam, Math Olympiad, membership, the Distinguished Engineer Award, or the five pillars.";
+    }
+
+    function addMsg(text, who) {
+      var div = document.createElement('div');
+      div.className = 'ai-msg ' + who;
+      div.textContent = text;
+      log.appendChild(div);
+      log.scrollTop = log.scrollHeight;
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var text = input.value.trim();
+      if (!text) return;
+      addMsg(text, 'user');
+      input.value = '';
+      var typing = document.createElement('div');
+      typing.className = 'ai-typing';
+      typing.textContent = 'Ask MEANT is typing…';
+      log.appendChild(typing);
+      log.scrollTop = log.scrollHeight;
+      window.setTimeout(function () {
+        typing.remove();
+        addMsg(answerFor(text), 'bot');
+      }, 600);
+    });
+  })();
 </script>
